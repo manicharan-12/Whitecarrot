@@ -1,6 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const router = express.Router();
+const authController = require("../controllers/authController");
 
 // Google OAuth login route
 router.get(
@@ -24,16 +25,6 @@ router.get(
 );
 
 // Check authentication status
-router.get("/check", (req, res) => {
-  if (req.isAuthenticated()) {
-    res.json({
-      id: req.user._id,
-      name: req.user.name,
-      email: req.user.email,
-    });
-  } else {
-    res.status(401).json({ error: "Not authenticated" });
-  }
-});
+router.get("/check", authController.checkAuthStatus);
 
 module.exports = router;
