@@ -16,6 +16,7 @@ export const fetchEvents = async (params) => {
 };
 
 export const login = async () => {
+  console.log("Utils, Logout");
   window.location.href = `${process.env.REACT_APP_API_URL}/api/auth/google`;
 };
 
