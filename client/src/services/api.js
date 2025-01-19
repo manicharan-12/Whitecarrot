@@ -6,8 +6,13 @@ const api = axios.create({
 });
 
 export const fetchEvents = async (params) => {
-  const response = await api.get("/api/events", { params });
-  return response.data;
+  try {
+    const response = await api.get("/api/events", { params });
+    return Array.isArray(response.data) ? response.data : [];
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return [];
+  }
 };
 
 export const login = async () => {

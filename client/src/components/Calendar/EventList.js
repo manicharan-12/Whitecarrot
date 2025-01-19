@@ -1,7 +1,7 @@
 import React from "react";
 import { format, parseISO } from "date-fns";
 
-const EventList = ({ events, loading }) => {
+const EventList = ({ events = [], loading }) => {
   const formatDateTime = (dateTimeStr, hasTime = true, fallbackDate = null) => {
     // If no date provided but fallback exists, use fallback
     if (!dateTimeStr && fallbackDate) {
@@ -52,7 +52,10 @@ const EventList = ({ events, loading }) => {
     );
   }
 
-  if (!events?.length) {
+  // Ensure events is an array and has items
+  const eventsArray = Array.isArray(events) ? events : [];
+
+  if (!eventsArray.length) {
     return (
       <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6 text-center text-gray-500">
         No events found
@@ -77,7 +80,7 @@ const EventList = ({ events, loading }) => {
           </tr>
         </thead>
         <tbody className="bg-white divide-y divide-gray-200">
-          {events.map((event) => {
+          {eventsArray.map((event) => {
             const { start, end } = getEventDateTime(event);
             return (
               <tr key={event.id || Math.random().toString()}>

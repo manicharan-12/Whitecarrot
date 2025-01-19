@@ -30,9 +30,10 @@ const CalendarView = () => {
       }
 
       const data = await fetchEvents(params);
-      setEvents(data);
+      setEvents(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error("Error loading events:", error);
+      setEvents([]);
     } finally {
       setLoading(false);
     }
