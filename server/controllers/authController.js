@@ -2,6 +2,7 @@ const User = require("../models/User");
 
 const checkAuthStatus = (req, res) => {
   if (req.isAuthenticated()) {
+    console.log(req.user)
     return res.json({
       id: req.user._id,
       name: req.user.name,
