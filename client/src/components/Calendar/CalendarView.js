@@ -4,6 +4,7 @@ import EventList from "./EventList";
 import EventFilter from "./EventFilter";
 import { fetchEvents } from "../../services/api";
 import CalendarAnalytics from "../Analytics/CalendarAnalytics";
+import ExportButton from "../Export/ExportButton";
 const CalendarView = () => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +45,6 @@ const CalendarView = () => {
           Your Calendar Events
         </h1>
         <div className="flex items-center space-x-4">
-          <NotificationBell events={events} />
           <ExportButton events={events} />
           <button
             onClick={() => setShowAnalytics(!showAnalytics)}
