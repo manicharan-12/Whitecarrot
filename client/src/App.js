@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
 import Navbar from "./components/Layout/Navbar";
 import Login from "./components/Auth/Login";
 import CalendarView from "./components/Calendar/CalendarView";
 import PrivateRoute from "./components/Auth/PrivateRoute";
+import { initializeAuth } from "./services/api";
 
 function App() {
+  useEffect(() => {
+    initializeAuth();
+  }, []);
   return (
     <AuthProvider>
       <BrowserRouter>

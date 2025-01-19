@@ -3,7 +3,6 @@ const passport = require("passport");
 const router = express.Router();
 const authController = require("../controllers/authController");
 
-// Google OAuth login route
 router.get(
   "/google",
   passport.authenticate("google", {
@@ -15,16 +14,14 @@ router.get(
   })
 );
 
-// Google OAuth callback route
 router.get(
   "/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: `${process.env.CLIENT_URL}/login`,
-    successRedirect: process.env.CLIENT_URL,
-  })
+  passport.authenticate("google", { session: false }),
+  (req, res) => {
+    res.redirect(`${process.env.CLIENT_URL}?token=${req.user.token}`);
+  }
 );
 
-// Check authentication status
 router.get("/check", authController.checkAuthStatus);
 
 module.exports = router;
