@@ -1,10 +1,12 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { login } from "../../services/api";
 
 const Login = () => {
   const { user, loading } = useAuth();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   if (loading) {
     return (
@@ -15,7 +17,7 @@ const Login = () => {
   }
 
   if (user) {
-    return <Navigate to="/" replace />;
+    return <Navigate to={from} replace />;
   }
 
   return (
