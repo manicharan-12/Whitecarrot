@@ -16,7 +16,7 @@ export const fetchEvents = async (params) => {
 };
 
 export const login = async () => {
-  window.location.href = `/api/auth/google`;
+  window.location.href = `${process.env.REACT_APP_API_URL}/api/auth/google`;
 };
 
 export const logout = async () => {
