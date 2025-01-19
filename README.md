@@ -71,9 +71,10 @@ A web application that allows users to log in with Google, view their calendar e
 MONGODB_URI=your_mongodb_connection_string
 GOOGLE_CLIENT_ID=your_google_client_id
 GOOGLE_CLIENT_SECRET=your_google_client_secret
-SESSION_SECRET=your_session_secret
 CLIENT_URL=http://localhost:3000
 PORT=5000
+SERVER_URL=http://localhost:5000
+JWT_SECRET=your_secure_random_string_here
 ```
 
 2. Frontend (.env file in client directory):
