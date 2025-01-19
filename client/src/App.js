@@ -6,6 +6,7 @@ import Login from "./components/Auth/Login";
 import CalendarView from "./components/Calendar/CalendarView";
 import PrivateRoute from "./components/Auth/PrivateRoute";
 import { initializeAuth } from "./services/api";
+import { ToastContainer, Bounce } from "react-toastify";
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,19 @@ function App() {
             </Routes>
           </div>
         </div>
+        <ToastContainer
+          position="bottom-center"
+          autoClose={3000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+          transition={Bounce}
+        />
       </BrowserRouter>
     </AuthProvider>
   );

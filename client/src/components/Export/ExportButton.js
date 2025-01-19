@@ -1,14 +1,15 @@
-import React from 'react';
-import { Download } from 'lucide-react';
-import { exportToExcel } from '../../utils/exportUtils';
+import React from "react";
+import { Download } from "lucide-react";
+import { exportToExcel } from "../../utils/exportUtils";
+import { toast } from "react-toastify";
 
 const ExportButton = ({ events }) => {
   const handleExport = async () => {
     try {
       await exportToExcel(events);
     } catch (error) {
-      console.error('Export failed:', error);
-      // Add error notification here
+      console.error("Export failed:", error);
+      toast.error("Error downloading event, Try Again Later!");
     }
   };
 

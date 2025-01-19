@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { format } from "date-fns";
 import EventList from "./EventList";
 import EventFilter from "./EventFilter";
 import { fetchEvents } from "../../services/api";
