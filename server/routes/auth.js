@@ -35,3 +35,5 @@ router.get("/check", (req, res) => {
     res.status(401).json({ error: "Not authenticated" });
   }
 });
+
+module.exports = router;
