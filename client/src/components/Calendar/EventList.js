@@ -13,7 +13,6 @@ const EventList = ({ events = [], loading }) => {
 
     try {
       const date = parseISO(dateTimeStr);
-
       const includesTime = dateTimeStr.includes("T");
 
       if (includesTime && hasTime) {
@@ -29,7 +28,6 @@ const EventList = ({ events = [], loading }) => {
   const getEventDateTime = (event) => {
     const startDateTime = event?.start?.dateTime || event?.start?.date;
     const endDateTime = event?.end?.dateTime || event?.end?.date;
-
     const hasTime = startDateTime?.includes("T") || endDateTime?.includes("T");
 
     return {
@@ -50,49 +48,79 @@ const EventList = ({ events = [], loading }) => {
 
   if (!eventsArray.length) {
     return (
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg p-6 text-center text-gray-500">
+      <div className="bg-white shadow overflow-hidden rounded-lg p-6 text-center text-gray-500">
         No events found
       </div>
     );
   }
 
   return (
-    <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-      <table className="min-w-full divide-y divide-gray-200">
-        <thead className="bg-gray-50">
-          <tr>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Event
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              Start Time
-            </th>
-            <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-              End Time
-            </th>
-          </tr>
-        </thead>
-        <tbody className="bg-white divide-y divide-gray-200">
+    <div className="bg-white shadow overflow-hidden rounded-lg">
+      {/* Large screens - table view */}
+      <div className="hidden md:block">
+        <table className="min-w-full divide-y divide-gray-200">
+          <thead className="bg-gray-50">
+            <tr>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Event
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Start Time
+              </th>
+              <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                End Time
+              </th>
+            </tr>
+          </thead>
+          <tbody className="bg-white divide-y divide-gray-200">
+            {eventsArray.map((event) => {
+              const { start, end } = getEventDateTime(event);
+              return (
+                <tr key={event.id || Math.random().toString()}>
+                  <td className="px-4 py-4">
+                    <div className="text-sm font-medium text-gray-900">
+                      {event.summary || "Untitled Event"}
+                    </div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="text-sm text-gray-500">{start}</div>
+                  </td>
+                  <td className="px-4 py-4">
+                    <div className="text-sm text-gray-500">{end}</div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+
+      {/* Mobile view - card layout */}
+      <div className="md:hidden">
+        <div className="divide-y divide-gray-200">
           {eventsArray.map((event) => {
             const { start, end } = getEventDateTime(event);
             return (
-              <tr key={event.id || Math.random().toString()}>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-gray-900">
-                    {event.summary || "Untitled Event"}
+              <div
+                key={event.id || Math.random().toString()}
+                className="p-4 space-y-2"
+              >
+                <div className="text-sm font-medium text-gray-900">
+                  {event.summary || "Untitled Event"}
+                </div>
+                <div className="grid grid-cols-2 gap-2 text-sm text-gray-500">
+                  <div>
+                    <span className="font-medium">Start:</span> {start}
                   </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{start}</div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm text-gray-500">{end}</div>
-                </td>
-              </tr>
+                  <div>
+                    <span className="font-medium">End:</span> {end}
+                  </div>
+                </div>
+              </div>
             );
           })}
-        </tbody>
-      </table>
+        </div>
+      </div>
     </div>
   );
 };
